@@ -1,1 +1,3 @@
 # Service CRM
+
+Developed a web-based application to manage and track customer complaints for service-based companies.Used role-based access for different users like Admins, Service Users, Engineers, and Employees.Admins can manage locations, professions, complaint types, items, users, and staff through a centralized system.Service Users can register, log in, raise complaints, check status, and give feedback easily.Engineers and Employees can view, assign, resolve, and close complaints with clear workflows.Developed using ASP.NET Core MVC, C#, SQL Server, Entity Framework Core, JavaScript, and asynchronous programming for high performance, smooth operation, and scalability.
