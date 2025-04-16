@@ -1,0 +1,107 @@
+﻿@model Infra.Detos.SalesInvoicePaymentDto
+
+
+<div>
+    @await Component.InvokeAsync("OldPaymentVC", new {customerId = Model.CustomerOrPartyID })
+</div>
+
+
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+        <div class="card-body">
+            <h3 class="card-title text-center text-primary fw-bold">
+                <i class="bi bi-credit-card"></i> Make Payment
+            </h3>
+            <hr />
+            <form asp-action="MakePayment" method="post">
+                <input type="hidden" asp-for="SalesInvoiceID" />
+                <input type="hidden" asp-for="TotalInvoiceAmount" />
+                <input type="hidden" asp-for="IsChequePayment" id="IsChequePayment" />
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold"><i class="bi bi-person-fill"></i> Customer Name</label>
+                        <input type="text" class="form-control border-primary" value="@Model.CustomerOrPartyName" readonly />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold"><i class="bi bi-cash"></i> Total Invoice Amount</label>
+                        <input type="text" class="form-control border-success" value="@Model.TotalInvoiceAmount" readonly />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold"><i class="bi bi-wallet2"></i> Balance Amount</label>
+                        <input type="text" class="form-control border-danger" value="@Model.BalanceAmount" readonly />
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold"><i class="bi bi-credit-card"></i> Payment Mode</label>
+                        <div class="d-flex flex-wrap gap-3">
+                            @foreach (var paymentMode in Model.PaymentModes)
+                            {
+                                <div class="form-check">
+                                    <input class="form-check-input payment-mode" type="radio" name="PaymentModeID" value="@paymentMode.Value" required />
+                                    <label class="form-check-label">@paymentMode.Text</label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label class="form-label fw-bold"><i class="bi bi-chat-dots"></i> Payment Description</label>
+                        <textarea class="form-control border-info" asp-for="PaymentDesc" rows="3" placeholder="Enter payment details..."></textarea>
+                    </div>
+                </div>
+
+                <div id="chequeDetails" class="border p-3 rounded bg-light mt-3" style="display: none;">
+                    <h5 class="fw-bold"><i class="bi bi-bank"></i> Cheque Details</h5>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><i class="bi bi-calendar"></i> Cheque Date</label>
+                            <input type="date" class="form-control border-primary" asp-for="ChequeDate" />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><i class="bi bi-building"></i> Bank Name</label>
+                            <input type="text" class="form-control border-primary" asp-for="BankName" placeholder="Enter bank name..." />
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label"><i class="bi bi-123"></i> Cheque Number</label>
+                            <input type="text" class="form-control border-primary" asp-for="ChequeNo" placeholder="Enter cheque number..." />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-3">
+                    <button type="submit" class="btn btn-lg btn-success px-4">
+                        <i class="bi bi-check-circle"></i> Submit Payment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const paymentModeInputs = document.querySelectorAll(".payment-mode");
+        const chequeDetails = document.getElementById("chequeDetails");
+        const isChequePaymentInput = document.getElementById("IsChequePayment");
+
+        paymentModeInputs.forEach(input => {
+            input.addEventListener("change", function () {
+                if (this.nextElementSibling.innerText.toLowerCase().includes("cheque")) {
+                    chequeDetails.style.display = "block";
+                    isChequePaymentInput.value = "true";
+                } else {
+                    chequeDetails.style.display = "none";
+                    isChequePaymentInput.value = "false";
+                }
+            });
+        });
+    });
+</script>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

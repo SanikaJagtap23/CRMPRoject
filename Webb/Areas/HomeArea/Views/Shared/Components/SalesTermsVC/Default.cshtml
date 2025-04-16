@@ -1,0 +1,20 @@
+﻿<div class="card mt-4 shadow-sm border-0">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Terms and Conditions</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            @foreach (var term in Model.SalesInvoiceTermsAndCondition)
+            {
+                <div class="col-md-6 ms-2">
+                    <div class="form-check">
+                        <input type="checkbox" name="SelectedTerms" value="@term.Value" class="form-check-input" id="term_@term.Value">
+                        <label class="form-check-label fw-bold text-dark" for="term_@term.Value">
+                            @term.Text
+                        </label>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

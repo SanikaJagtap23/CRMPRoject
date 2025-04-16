@@ -1,0 +1,20 @@
+﻿@model SalesInvoiceDto
+
+<h4>Sales Invoice Details</h4>
+<div>
+    <label>Invoice No:</label> @Model.InVoiceNo
+</div>
+
+
+<div>
+    <label>Items:</label>
+    <ul>
+        @foreach (var item in Model.Items)
+        {
+            <li>@item.ItemID - @item.Qty - @item.Price</li>
+        }
+    </ul>
+</div>
+
+
+<a href="@Url.Action("Index")" class="btn btn-primary">Back To List</a>

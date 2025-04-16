@@ -1,0 +1,78 @@
+﻿@model Item
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Edit Item</h5>
+        <form asp-action="Edit" method="post">
+           <input type="hidden"asp-for="ItemID" />
+            <div class="form-group">
+                <label asp-for="ItemName">ItemName</label>
+                <div>
+                    <input asp-for="ItemName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemDescription">ItemDescription</label>
+                <div>
+                    <input asp-for="ItemDescription" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemCode">ItemCode</label>
+                <div>
+                    <input asp-for="ItemCode" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemName">ItemName</label>
+                <div>
+                    <input asp-for="ItemName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemDescription">ItemDescription</label>
+                <div>
+                    <input asp-for="ItemDescription" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemCode">ItemCode</label>
+                <div>
+                    <input asp-for="ItemCode" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="MobileNumber">MobileNumber</label>
+                <div>
+                    <input asp-for="MobileNumber" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsActive">IsActive</label>
+                <div>
+                    <input asp-for="IsActive" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsProductOrService">IsProductOrService</label>
+                <div>
+                    <input asp-for="ItemDescription" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Select ItemCategory </label>
+                <select class="form-select" asp-for="ItemCategoryID" asp-items="@ViewBag.ItemCategories">
+                    <option>Select Category</option>
+                </select>
+                </div>
+                <div class="col-12">
+                    <label class="form-label">Select Unit </label>
+                    <select class="form-select" asp-for="UnitID" asp-items="@ViewBag.Unities">
+                        <option>Select Unit</option>
+                    </select>
+
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

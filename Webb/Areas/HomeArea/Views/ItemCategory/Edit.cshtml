@@ -1,0 +1,36 @@
+﻿@model ItemCategory
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Create ItemCategory</h5>
+        <form asp-action="Edit" method="post">
+            <input type="hidden"asp-for="ItemCategoryID" />
+
+            <div class="form-group">
+                <label asp-for="ItemCategoryName">ItemCategoryName</label>
+                <div>
+                    <input asp-for="ItemCategoryName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActiveFlag">ActiveFlage</label>
+                <div>
+                    <input asp-for="ActiveFlag" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Select Company </label>
+                <select class="form-select" asp-for="BillingCompanyID" asp-items="@ViewBag.BillingCompanies">
+                    <option>Select States</option>
+                </select>
+              </div>
+
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+
+
+
+

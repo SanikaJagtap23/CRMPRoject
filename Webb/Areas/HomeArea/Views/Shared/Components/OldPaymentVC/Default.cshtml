@@ -1,0 +1,37 @@
+﻿@model List<Domine.SalesInvoicePayment>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0"><i class="bi bi-clock-history"></i> Previous Payments</h5>
+    </div>
+    <div class="card-body">
+        @if (Model != null && Model.Any())
+        {
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Payment Mode</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var payment in Model)
+                    {
+                        <tr>
+                            <td>@payment.PaymentDate.ToString("yyyy-MM-dd")</td>
+                            <td>@payment.PaymentAmt.ToString("C")</td>
+                            <td>@payment.PaymentMode.PaymentModeName</td>
+                            <td>@payment.PaymentDesc</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <p class="text-muted">No previous payments found.</p>
+        }
+    </div>
+</div>

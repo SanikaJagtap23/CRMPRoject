@@ -1,0 +1,157 @@
+﻿@using Domine.Enums
+@using Newtonsoft.Json
+@model PurchaseOrderDto
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Create Purchase Orders</h4>
+        <form class="forms-sample" asp-action="Edit" method="post">
+            <input type="hidden"asp-for="PurchaseOrderID" />
+
+            <div class="form-group">
+                <label asp-for="PONumber">Purchase Order No</label>
+                <input asp-for="PONumber" class="form-control" />
+            </div>
+         
+            <div class="form-group">
+                <label for="SupplierORVenderID">Supplier Or Vendor</label>
+                <select id="SupplierORVenderID" name="SupplierORVenderID" class="form-select" asp-items="Model.SupplierORVendors">
+                    <option value="">Select Supplier Or Vendors</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">Invoice Payment Type</label>
+                <select asp-for="PaymentType" asp-items="@Html.GetEnumSelectList<InVoicePaymentTypeEnum>()" class="form-control"></select>
+            </div>
+
+            <hr />
+            <h5>Items</h5>
+            <table class="table" id="itemsTable">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Subtotal</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.InvoiceItems.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <select name="Items[@i].ItemID" class="form-select">
+                                    <option value="@Model.InvoiceItems[i].Value">@Model.InvoiceItems[i].Text</option>
+                                </select>
+                            </td>
+                            <td><input type="text" name="Items[@i].Qty" class="form-control qty" value="1" min="1" /></td>
+                            <td><input type="text" name="Items[@i].Price" class="form-control price" value="0" /></td>
+                            <td><input type="text" name="Items[@i].Subtotal" class="form-control subtotal" readonly /></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <div class="form-group mt-3">
+                <label>Total Amount</label>
+                <input id="TotalAmount" asp-for="TotalAmount" class="form-control" readonly />
+            </div>
+
+            <div class="form-group">
+                <label for="POTermsAndConditionID">PO Term and Condition</label>
+                <select id="POTermsAndConditionID" name="POTermsAndConditionID" class="form-select" asp-items="Model.POTermsAndConditions">
+                    <option value="">PO Terms and Condition</option>
+                </select>
+            </div>
+          @*   <div class="form-group mt-3">
+                <label asp-for="PurchaseOrderTermsName">Purchase Terms and Condition</label>
+                <input asp-for="PurchaseOrderTermsName" class="form-control" />
+            </div>
+            *@
+
+            <button type="button" id="showTerms" class="btn btn-info mt-3">Select Terms and Conditions</button>
+
+            <!-
+
+            <div id="termsCheckboxes" style="display:none; margin-top: 15px;">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="1" id="term1">
+                    <label class="form-check-label" for="term1">
+                        Term 1: Some condition here
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="2" id="term2">
+                    <label class="form-check-label" for="term2">
+                        Term 2: Another condition here
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="3" id="term3">
+                    <label class="form-check-label" for="term3">
+                        Term 3: Third condition
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="4" id="term4">
+                    <label class="form-check-label" for="term4">
+                        Term 4: Fourth condition
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="5" id="term5">
+                    <label class="form-check-label" for="term5">
+                        Term 5: Fifth condition
+                    </label>
+                </div>
+            </div>
+            <script>
+                document.getElementById("showTerms").addEventListener("click", function () {
+                    let termsCheckboxes = document.getElementById("termsCheckboxes");
+                    if (termsCheckboxes.style.display === "none") {
+                        termsCheckboxes.style.display = "block";
+                    } else {
+                        termsCheckboxes.style.display = "none";
+                    }
+                });
+            </script>
+            <script>
+                document.querySelector("form").addEventListener("submit", function (event) {
+
+                    let selectedTerms = [];
+                    document.querySelectorAll("#termsCheckboxes input[type='checkbox']:checked").forEach(function (checkbox) {
+                        selectedTerms.push(checkbox.value);
+                    });
+
+
+                    document.getElementById("SelectedTerms").value = JSON.stringify(selectedTerms);
+                });
+            </script>
+
+
+            <button type="button" id="calculateTotal" class="btn btn-primary mt-3">Calculate</button>
+            <button type="submit" class="btn btn-success mt-3">Submit</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    document.getElementById("calculateTotal").addEventListener("click", calculateTotal);
+
+    function calculateTotal() {
+        let total = 0;
+        document.querySelectorAll("#itemsTable tbody tr").forEach(row => {
+            let qty = parseFloat(row.querySelector(".qty").value);
+            let price = parseFloat(row.querySelector(".price").value);
+            let subtotal = qty * price;
+            row.querySelector(".subtotal").value = subtotal.toFixed(2);
+            total += subtotal;
+        });
+
+        document.getElementById("TotalAmount").value = total.toFixed(2);
+    }
+</script>
+
+               

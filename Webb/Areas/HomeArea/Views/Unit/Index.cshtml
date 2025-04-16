@@ -1,0 +1,47 @@
+﻿@model IEnumerable<Infra.Detos.UnitDto>
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Unit List</h5>
+
+        <a asp-action="Create" class="btn btn-primary">Create</a>
+        <hr />
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th>UnitName</th>
+                    <th>Is Master Unit</th>
+                    <th>Master Unit Name</th>
+                    <th>Quantity Per Unit</th>
+                    <th>Status</th>
+                    <th>Billing Company</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int srno = 1;
+                }
+                @foreach (var unit in Model)
+                {
+                    <tr>
+                        <th scope="row">@srno</th>
+                        <td>@unit.UnitName</td>
+                        <td>@(unit.IsMasterUnitID ? "Yes" : "No")</td>
+                        <td>@(string.IsNullOrEmpty(unit.MasterUnitName) ? "None" : unit.MasterUnitName)</td>
+                        <td>@unit.QtyPerUnit</td>
+                        <td>@(unit.ActiveFlag ? "Active" : "Inactive")</td>
+                        <td>@unit.BillingCompanyName</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@unit.UnitID" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@unit.UnitID" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    srno++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿@model State
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">List State</h5>
+        <form asp-action="Edit" method="post">
+            <input type="hidden"asp-for="StateID" />
+
+            <div class="form-group">
+                <label asp-for="StateName">StateName</label>
+                <div>
+                    <input asp-for="StateName" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Select Country </label>
+                <select class="form-select" asp-for="CountryID" asp-items="@ViewBag.Countries">
+                    <option>Select Country</option>
+                </select>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+

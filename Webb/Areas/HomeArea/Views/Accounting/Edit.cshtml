@@ -1,0 +1,26 @@
+﻿@model Accounting
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Create Accounting</h5>
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="AccountYearID"/>
+
+            <div class="form-group">
+                <label asp-for="AccountYear">AccountYear</label>
+                <div>
+                    <input asp-for="AccountYear" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Select States </label>
+                <select class="form-select" asp-for="BillingCompanyID" asp-items="@ViewBag.BillingCompanies">
+                    <option>Select BillingCompany</option>
+                </select>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+

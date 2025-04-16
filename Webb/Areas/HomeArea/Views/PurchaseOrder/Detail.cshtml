@@ -1,0 +1,61 @@
+﻿@model PurchaseOrder
+<h2>Purchase Order @Model.PurchaseOrderId</h2>
+<table class="table table-bordered">
+
+    <tr>
+        <td>Purchase Order</td>
+        <td>@Model.Vendor.VendorName</td>
+    </tr>
+    <tr>
+        <td>OrderDate</td>
+        <td>@Model.PurchaseDate</td>
+    </tr>
+
+</table>
+
+<h2>Purchase Order Details</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <td>ProductOrService</td>
+            <td>Qty</td>
+            <td>Price</td>
+
+        </tr>
+    </thead>
+
+
+    @foreach (var temp in Model.PurchaseOrderDets)
+    {
+        <tr>
+            <td>@temp.ProductOrService</td>
+            <td>@temp.Qty</td>
+            <td>@temp.Price</td>
+        </tr>
+    }
+
+</table>
+
+<h2>PurchaseOrderTax</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+
+            <th>Tax Name </th>
+            <th>Tax Percentage</th>
+            <th> Tax Amount </th>
+        </tr>
+    </thead>
+
+    @foreach (var temp in Model.PurchaseOrderTaxes)
+    {
+        <tr>
+            <td>@temp.TaxName</td>
+            <td>@temp.TaxPercentage</td>
+            <td>@temp.TaxAmount</td>
+
+
+        </tr>
+    }
+
+</table>

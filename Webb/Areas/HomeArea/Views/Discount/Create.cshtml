@@ -1,0 +1,44 @@
+﻿@model Discount
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Create Discount</h5>
+        <form asp-action="Create" method="post">
+
+            <div class="form-group">
+                <label asp-for="DiscountName">DiscountName</label>
+                <div>
+                    <input asp-for="DiscountName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActiveFlag">ActiveFlag</label>
+                <div>
+                    <input asp-for="ActiveFlag" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="DiscountAmount">DiscountAmount</label>
+                <div>
+                    <input asp-for="DiscountAmount" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsPercentile">IsPercentile</label>
+                <div>
+                    <input asp-for="IsPercentile" class="form-control" />
+                </div>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Select BillingCompany  </label>
+                <select class="form-select" asp-for="BillingCompanyID" asp-items="@ViewBag.BillingCompanies">
+                    <option>Select BillingComies</option>
+                </select>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+

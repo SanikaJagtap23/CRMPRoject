@@ -1,0 +1,30 @@
+﻿@model ExpenseType
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Create Brand</h5>
+        <form asp-action="Create" method="post">
+
+            <div class="form-group">
+                <label asp-for="ExpenseTypeName">ExpenseTypeName</label>
+                <div>
+                    <input asp-for="ExpenseTypeName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActiveFlag">ActiveFlag</label>
+                <div>
+                    <input asp-for="ActiveFlag" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Select Company </label>
+                <select class="form-select" asp-for="BillingCompanyID" asp-items="@ViewBag.BillingCompanies">
+                    <option>Select BillingCompany</option>
+                </select>
+
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>

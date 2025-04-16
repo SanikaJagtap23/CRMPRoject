@@ -1,0 +1,69 @@
+﻿@model Unit
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Create Unit</h5>
+        <form asp-action="Create" method="post">
+            <div class="mb-3">
+                <label for="UnitName" class="form-label">Unit Name</label>
+                <input type="text" class="form-control" id="UnitName" name="UnitName" value="@Model.UnitName" required />
+            </div>
+
+
+            <div class="mb-3">
+                <label for="QtyPerUnit" class="form-label">Quantity Per Unit</label>
+                <input type="number" step="0.01" class="form-control" id="QtyPerUnit" name="QtyPerUnit" value="@Model.QtyPerUnit" required />
+            </div>
+
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="IsMasterUnitID" name="IsMasterUnitID" value="true"
+                @(Model.IsMasterUnitID ? "checked" : "") onclick="toggleMasterUnitDropdown(this)" />
+                <label class="form-check-label" for="IsMasterUnitID">
+                    Is Master Unit
+                </label>
+            </div>
+
+
+            <div class="mb-3" id="MasterUnitDropdown" style="@(Model.IsMasterUnitID ? "display:none;" : "display:block;")">
+                <label for="MasterUnitID" class="form-label">Master Unit</label>
+                <select class="form-select" id="MasterUnitID" name="MasterUnitID">
+                    <option value="">-- Select Master Unit --</option>
+                    @foreach (var unit in ViewBag.MasterUnits as IEnumerable<Unit>)
+                    {
+                        <option value="@unit.UnitID">@unit.UnitName</option>
+                    }
+                </select>
+            </div>
+
+
+
+            <input type="hidden" id="HiddenMasterUnitID" name="MasterUnitID" value="@(Model.MasterUnitID == 0 ? "0" : Model.MasterUnitID.ToString())" />
+
+
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+<script>
+
+    function toggleMasterUnitDropdown(checkbox) {
+        const dropdown = document.getElementById("MasterUnitDropdown");
+        const hiddenMasterUnitID = document.getElementById("HiddenMasterUnitID");
+
+        if (checkbox.checked) {
+            dropdown.style.display = "none";
+            hiddenMasterUnitID.value = "0";
+        } else {
+            dropdown.style.display = "block";
+            const selectedDropdownValue = document.getElementById("MasterUnitID").value;
+            hiddenMasterUnitID.value = selectedDropdownValue || "0";
+        }
+    }
+
+
+    document.getElementById("MasterUnitID").addEventListener("change", function () {
+        const hiddenMasterUnitID = document.getElementById("HiddenMasterUnitID");
+        hiddenMasterUnitID.value = this.value || "0";
+    });
+</script>

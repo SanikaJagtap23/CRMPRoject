@@ -1,0 +1,40 @@
+﻿@model IEnumerable<PurchaseOrder>
+
+<div class="container mt-4">
+    <h4 class="mb-3">Purchase Order List</h4>
+    <a asp-action="Create" class="btn btn-primary mb-3">Create New Purchase Order</a>
+
+    @foreach (var temp in Model)
+    {
+        <div class="card mb-4 shadow border-0 rounded">
+
+            <!-- Header with PO Number and Status -->
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">PO Number: @temp.PONumber</h5>
+                <span class="badge bg-success p-2">ACTIVE</span> <!-- You can modify this dynamically if needed -->
+            </div>
+
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Order Date:</strong> @temp.OrderDate.ToString("d")</p>
+                        <p><strong>Billing Company:</strong> @temp.BillingCompany.CompanyName</p>
+                        <p><strong>Supplier/Vendor:</strong> @temp.SupplierORVenders.SupplierORVenderName</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Payment Type:</strong> @temp.PaymentType.ToString()</p>
+                        <p><strong>Active Status:</strong> @temp.ActiveFlage</p>
+                        <h5 class="text-primary font-weight-bold">Total Amount: $@temp.TotalAmount</h5>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex justify-content-end mt-3">
+                    <a asp-action="Edit" asp-route-id="@temp.PurchaseOrderID" class="btn btn-warning btn-sm mx-1">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@temp.PurchaseOrderID" class="btn btn-danger btn-sm mx-1">Delete</a>
+                    <a asp-action="Details" asp-route-id="@temp.PurchaseOrderID" class="btn btn-info btn-sm mx-1">Details</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

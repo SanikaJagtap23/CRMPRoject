@@ -1,0 +1,100 @@
+﻿@using Domine.Enums
+@using Newtonsoft.Json
+@model PurchaseOrderDto
+
+<div class="container mt-4">
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">Create Purchase Order</h4>
+        </div>
+        <div class="card-body">
+            <form class="needs-validation" asp-action="Create" method="post" novalidate>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label asp-for="PONumber" class="form-label">Purchase Order No</label>
+                        <input asp-for="PONumber" class="form-control" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="SupplierORVenderID" class="form-label">Supplier or Vendor</label>
+                        <select id="SupplierORVenderID" name="SupplierORVenderID" class="form-select" asp-items="Model.SupplierORVendors" required>
+                            <option value="">Select Supplier or Vendor</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label">Payment Type</label>
+                        <select asp-for="PaymentType" asp-items="@Html.GetEnumSelectList<InVoicePaymentTypeEnum>()" class="form-select"></select>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+                <h5 class="text-primary">Order Items</h5>
+                <div class="table-responsive">
+                    <table class="table table-bordered text-center">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Item</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                                <th>Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.InvoiceItems.Count; i++)
+                            {
+                                <tr>
+                                    <td>
+                                        <select name="Items[@i].ItemID" class="form-select">
+                                            <option value="@Model.InvoiceItems[i].Value">@Model.InvoiceItems[i].Text</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="number" name="Items[@i].Qty" class="form-control qty" value="1" min="1" required></td>
+                                    <td><input type="number" name="Items[@i].Price" class="form-control price" value="0" required></td>
+                                    <td><input type="text" name="Items[@i].Subtotal" class="form-control subtotal" readonly></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="row g-3 mt-4">
+                    <div class="col-md-6">
+                        <label>Total Amount</label>
+                        <input id="TotalAmount" asp-for="TotalAmount" class="form-control" readonly>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    @await Component.InvokeAsync("PurchaseTermsVC")
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" id="calculateTotal" class="btn btn-info px-4">Calculate</button>
+                    <button type="submit" class="btn btn-success px-4">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("calculateTotal").addEventListener("click", calculateTotal);
+
+        document.querySelectorAll(".qty, .price").forEach(input => {
+            input.addEventListener("input", calculateTotal);
+        });
+    });
+
+    function calculateTotal() {
+        let total = 0;
+        document.querySelectorAll("tbody tr").forEach(row => {
+            let qty = parseFloat(row.querySelector(".qty").value) || 0;
+            let price = parseFloat(row.querySelector(".price").value) || 0;
+            let subtotal = qty * price;
+            row.querySelector(".subtotal").value = subtotal.toFixed(2);
+            total += subtotal;
+        });
+
+        document.getElementById("TotalAmount").value = total.toFixed(2);
+    }
+</script>

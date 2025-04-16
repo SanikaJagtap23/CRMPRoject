@@ -1,0 +1,49 @@
+﻿@model Unit 
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Create Unit</h5>
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="UnitID" />
+            <div class="form-group">
+                <label asp-for="UnitName">UnitName</label>
+                <div>
+                    <input asp-for="UnitName" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="ActiveFlag">ActiveFlag</label>
+                <div>
+                    <input asp-for="ActiveFlag" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="QtyPerUnit">QtyPerUnit</label>
+                <div>
+                    <input asp-for="QtyPerUnit" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsMasterUnitID">IsMasterUnitID</label>
+                <div>
+                    <input asp-for="IsMasterUnitID" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="MasterUnitID">MasterUnitID</label>
+                <div>
+                    <input asp-for="MasterUnitID" class="form-control" />
+                </div>
+            </div>
+            <div class="col-12">
+                <label class="form-label">Select Company </label>
+                <select class="form-select" asp-for="BillingCompanyID" asp-items="@ViewBag.BillingCompanies">
+                    <option>Select Company</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+
+

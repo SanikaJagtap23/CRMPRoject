@@ -1,0 +1,38 @@
+﻿@model IEnumerable<City>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">City  List</h5>
+
+        <a asp-action="Create" class="btn btn-primary">Create</a>
+        <hr />
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th>CityName</th>
+                    <th>StateName</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int srno = 1;
+                }
+                @foreach (var temp in Model)
+                {
+                    <tr>
+                        <th scope="row">@srno</th>
+                        <th>@temp.CityName</th>
+                        <th>@temp.State.StateName</th>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@temp.CityID" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@temp.CityID" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    srno++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

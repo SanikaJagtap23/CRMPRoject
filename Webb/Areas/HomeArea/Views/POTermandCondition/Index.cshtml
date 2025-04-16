@@ -1,0 +1,42 @@
+﻿@model IEnumerable<POTermsAndConditions>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">POTermsAndCondition  List</h5>
+
+        <a asp-action="Create" class="btn btn-primary">Create</a>
+        <hr />
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th>PotermsAndCondition</th>
+                    <th>BillingComapnyName</th>
+                    <th>ActiveFlage</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int srno = 1;
+                }
+                @foreach (var temp in Model)
+                {
+                    <tr>
+                        <th scope="row">@srno</th>
+                        <th>@temp.POTermsAndConditionsName</th>
+                        <th>@temp.ActiveFlag</th>
+                        <th>@temp.BillingCompany.BillingCompanyID</th>
+
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@temp.POTermsAndConditionsID" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@temp.POTermsAndConditionsID" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    srno++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

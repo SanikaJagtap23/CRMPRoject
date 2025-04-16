@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Item>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Item List</h5>
+
+        <a asp-action="Create" class="btn btn-primary">Create</a>
+        <hr />
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th>ItemName</th>
+                    <th>ItemDesc</th>
+                    <th>itemCode</th>
+                    <th>MobileNo  </th>
+                    <th>IsActive</th>
+                    <th>IsProductOrServices</th>
+                    <th>ItemCategoryName</th>
+                    <th>UnitName</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int srno = 1;
+                }
+                @foreach (var temp in Model)
+                {
+                    <tr>
+                        <th scope="row">@srno</th>
+                        <td>@temp.ItemName</td>
+                        <td>@temp.ItemDescription</td>
+                        <td>@temp.ItemCode</td>
+                        <td>@temp.MobileNumber</td>
+                        <td>@temp.IsActive</td>
+                        <td>@temp.IsProductOrService</td>
+                        <td>@temp.ItemCategory.ItemCategoryName</td>
+                        <td>@temp.Unit.UnitName</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@temp.ItemID"  class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@temp.ItemID" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    srno++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

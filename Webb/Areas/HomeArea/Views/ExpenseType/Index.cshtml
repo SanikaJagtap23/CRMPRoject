@@ -1,0 +1,43 @@
+﻿@model IEnumerable<ExpenseType>
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Expense List</h5>
+
+        <a asp-action="Create" class="btn btn-primary">Create</a>
+        <hr />
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th>ExpenseType</th>
+                    <th>ActiveFlage</th>
+                    <th>BillingCompanyName</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    int srno = 1;
+                }
+                @foreach (var temp in Model)
+                {
+                    <tr>
+                        <th scope="row">@srno</th>
+                        <th>@temp.ExpenseTypeName</th>
+                        <th>@temp.ActiveFlag</th>
+                        <th>@temp.BillingCompany.CompanyName</th>
+                     
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@temp.ExpenseTypeID" class="btn btn-warning btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@temp.ExpenseTypeID" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                    srno++;
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,0 +1,56 @@
+﻿@model PurchaseOrderDto
+
+@{
+    ViewData["Title"] = "Purchase Order Details";
+}
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Purchase Order Details</h4>
+        <dl class="row">
+            <dt class="col-sm-3">Purchase Order No</dt>
+            <dd class="col-sm-9">@Model.PONumber</dd>
+
+            <dt class="col-sm-3">Supplier Or Vendor</dt>
+            <dd class="col-sm-9">@Model.SupplierORVendors.FirstOrDefault(v => v.Value == Model.SupplierORVenderID.ToString())?.Text</dd>
+
+            <dt class="col-sm-3">Invoice Payment Type</dt>
+            <dd class="col-sm-9">@Model.PaymentType</dd>
+
+            <dt class="col-sm-3">Purchase Terms and Condition</dt>
+            <dd class="col-sm-9">@Model.PurchaseOrderTermsName</dd>
+
+            <dt class="col-sm-3">PO Terms and Conditions</dt>
+            <dd class="col-sm-9">@Model.POTermsAndConditions.FirstOrDefault(t => t.Value == Model.POTermsAndConditionID.ToString())?.Text</dd>
+        </dl>
+
+        <h5>Items</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>@item.ItemName</td>
+                        <td>@item.Qty</td>
+                        <td>@item.Price</td>
+                        <td>@(item.Qty * item.Price)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <div class="form-group mt-3">
+            <label>Total Amount</label>
+            <input value="@Model.TotalAmount" class="form-control" readonly />
+        </div>
+       
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@model IEnumerable<CustomerCategory>
+<div class="card">
+<div class="card-body">
+    <h5 class="card-title">CustomerCategory List</h5>
+    <!-- Bordered Table -->
+    <a asp-action="Create" class="btn btn-primary"> Create</a>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th>CustomerCategoryName</th>
+                <th>ActiveFlage</th>
+                <th>BillingCompanyName</th>
+            </tr>
+        </thead>
+        <tbody>
+                @{
+                    int srno = 1;
+                }
+                @foreach (var temp in Model)
+                {
+                <tr>
+                    <th scope="row">@srno</th>
+                    <td>@temp.CustomerCategoryName</td>
+                    <td>@temp.ActiveFlag</td>
+                    <td>@temp.BillingCompany.CompanyName</td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@temp.CustomerCategoryID" class="btn btn-primary"> Edit </a>
+                        <a asp-action="Delete" asp-route-id="@temp.CustomerCategoryID" class="btn btn-primary"> Delete </a>
+                    </td>
+                </tr>
+                    srno++;
+                }
+
+        </tbody>
+    </table>
+    </div>
+</div>
+    

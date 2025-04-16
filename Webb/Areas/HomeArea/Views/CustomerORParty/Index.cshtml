@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CustomerORParty>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="text-primary fw-bold">Customer / Party List</h4>
+        <a asp-action="Create" class="btn btn-success px-4">+ Add New</a>
+    </div>
+
+    <div class="row">
+        @foreach (var temp in Model)
+        {
+            <div class="col-md-6 col-lg-4">
+                <div class="card shadow-sm border-0 mb-4">
+                    <div class="card-body">
+                        <h5 class="fw-bold text-primary">@temp.CustomerName</h5>
+                        <p class="text-muted mb-1"><strong>Category:</strong> @temp.CustomerCategory.CustomerCategoryName</p>
+                        <p class="text-muted"><strong>Contact Person:</strong> @temp.ContactPersonName</p>
+
+                        <hr />
+
+                        <p class="mb-1"><i class="bi bi-geo-alt text-danger"></i> <strong>Address:</strong> @temp.Address, @temp.City.CityName</p>
+                        <p class="mb-1"><i class="bi bi-envelope text-warning"></i> <strong>Email:</strong> @temp.EmailID</p>
+                        <p class="mb-1"><i class="bi bi-telephone text-success"></i> <strong>Mobile:</strong> @temp.MobileNo</p>
+                        <p class="mb-1"><i class="bi bi-globe text-primary"></i> <strong>Website:</strong> <a href="@temp.WebsiteUrl" target="_blank">@temp.WebsiteUrl</a></p>
+                        <p class="mb-1"><strong>Pin Code:</strong> @temp.PinCode</p>
+                        <p class="mb-1"><strong>Opening Balance:</strong> $@temp.OpeningBalance</p>
+                        <p class="mb-1">
+                            <strong>Status:</strong>
+                            @if (temp.IsActive)
+                            {
+                                <span class="badge bg-success">Active</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Inactive</span>
+                            }
+                        </p>
+
+                        <div class="d-flex justify-content-end mt-3">
+                            <a asp-action="Edit" asp-route-id="@temp.CustomerORPartyID" class="btn btn-warning btn-sm mx-1">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@temp.CustomerORPartyID" class="btn btn-danger btn-sm mx-1">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
